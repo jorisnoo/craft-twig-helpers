@@ -11,6 +11,8 @@ class TwigHelpers extends Module
 {
     public function init(): void
     {
+        Craft::setAlias('@jorisnoo/CraftTwigHelpers', __DIR__);
+
         parent::init();
 
         Craft::$app->onInit(function () {
