@@ -1,17 +1,17 @@
 <?php
 
-namespace jorisnoo\CraftTwigHelpers;
+namespace Noo\CraftTwigHelpers;
 
 use Craft;
-use jorisnoo\CraftTwigHelpers\config\TwigHelpersConfig;
-use jorisnoo\CraftTwigHelpers\twigextensions\TwigHelpersExtension;
+use Noo\CraftTwigHelpers\config\TwigHelpersConfig;
+use Noo\CraftTwigHelpers\twigextensions\TwigHelpersExtension;
 use yii\base\Module;
 
 class TwigHelpers extends Module
 {
     public function init(): void
     {
-        Craft::setAlias('@jorisnoo/CraftTwigHelpers', __DIR__);
+        Craft::setAlias('@Noo/CraftTwigHelpers', __DIR__);
 
         parent::init();
 

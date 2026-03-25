@@ -1,6 +1,6 @@
 <?php
 
-namespace jorisnoo\CraftTwigHelpers\config;
+namespace Noo\CraftTwigHelpers\config;
 
 use craft\config\BaseConfig;
 

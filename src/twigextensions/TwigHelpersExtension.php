@@ -1,13 +1,13 @@
 <?php
 
-namespace jorisnoo\CraftTwigHelpers\twigextensions;
+namespace Noo\CraftTwigHelpers\twigextensions;
 
 use Craft;
 use craft\elements\Asset;
 use craft\elements\Entry;
 use craft\helpers\App;
 use craft\helpers\ImageTransforms;
-use jorisnoo\CraftTwigHelpers\config\TwigHelpersConfig;
+use Noo\CraftTwigHelpers\config\TwigHelpersConfig;
 use Twig\Extension\AbstractExtension;
 use Twig\Extension\GlobalsInterface;
 use Twig\TwigFilter;

@@ -1,5 +1,5 @@
 {
-    "name": "jorisnoo/craft-twig-helpers",
+    "name": "noo/craft-twig-helpers",
     "description": "Shared Twig helpers for Craft CMS with config-based extensibility.",
     "type": "craft-module",
     "license": "MIT",
@@ -11,7 +11,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "jorisnoo\\CraftTwigHelpers\\": "src/"
+            "Noo\\CraftTwigHelpers\\": "src/"
         }
     },
     "require": {

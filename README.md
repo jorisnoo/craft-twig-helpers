@@ -17,7 +17,7 @@ A [Craft CMS](https://craftcms.com/) module that provides shared Twig helpers wi
 ## Installation
 
 ```bash
-composer require jorisnoo/craft-twig-helpers
+composer require noo/craft-twig-helpers
 ```
 
 Register the module in your `config/app.php`:
@@ -25,7 +25,7 @@ Register the module in your `config/app.php`:
 ```php
 return [
     'modules' => [
-        'twig-helpers' => \jorisnoo\CraftTwigHelpers\TwigHelpers::class,
+        'twig-helpers' => \Noo\CraftTwigHelpers\TwigHelpers::class,
     ],
     'bootstrap' => ['twig-helpers'],
 ];
@@ -36,7 +36,7 @@ return [
 Create a `config/twig-helpers.php` file in your Craft project to register custom helpers:
 
 ```php
-use jorisnoo\CraftTwigHelpers\config\TwigHelpersConfig;
+use Noo\CraftTwigHelpers\config\TwigHelpersConfig;
 
 return TwigHelpersConfig::create()
     ->filters([
