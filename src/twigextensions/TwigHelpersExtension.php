@@ -25,6 +25,7 @@ class TwigHelpersExtension extends AbstractExtension implements GlobalsInterface
     {
         $filters = [
             new TwigFilter('hasTransparency', [$this, 'hasTransparency']),
+            new TwigFilter('trimEmptyParagraphs', [$this, 'trimEmptyParagraphs']),
         ];
 
         foreach ($this->config->filters as $name => $fn) {
@@ -71,6 +72,16 @@ class TwigHelpersExtension extends AbstractExtension implements GlobalsInterface
         }
 
         return $tests;
+    }
+
+    public function trimEmptyParagraphs(string $html): string
+    {
+        $emptyP = '<p(?:\s[^>]*)?>(?:\s|\x{00A0}|&nbsp;|<br[^>]*\/?>)*<\/p>';
+
+        $html = preg_replace('~^(\s*' . $emptyP . '\s*)+~isu', '', $html);
+        $html = preg_replace('~(\s*' . $emptyP . '\s*)+$~isu', '', $html);
+
+        return trim($html);
     }
 
     public function hasTransparency(Asset $asset): bool
