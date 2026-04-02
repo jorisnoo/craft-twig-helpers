@@ -1,5 +1,5 @@
 {
-    "name": "noo/craft-twig-helpers",
+    "name": "jorisnoo/craft-twig-helpers",
     "description": "Shared Twig helpers for Craft CMS with config-based extensibility.",
     "type": "craft-module",
     "license": "MIT",

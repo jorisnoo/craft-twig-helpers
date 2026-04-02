@@ -17,8 +17,11 @@ class TwigHelpers extends Module
 
         Craft::$app->onInit(function () {
             if (Craft::$app instanceof \craft\web\Application) {
-                $configData = Craft::$app->config->getConfigFromFile('twig-helpers');
-                $config = new TwigHelpersConfig($configData ?: []);
+                $config = Craft::$app->config->getConfigFromFile('twig-helpers');
+
+                if (!$config instanceof TwigHelpersConfig) {
+                    $config = new TwigHelpersConfig($config ?: []);
+                }
 
                 Craft::$app->getView()->registerTwigExtension(
                     new TwigHelpersExtension($config)

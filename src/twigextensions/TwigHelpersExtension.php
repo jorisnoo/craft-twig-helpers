@@ -25,7 +25,7 @@ class TwigHelpersExtension extends AbstractExtension implements GlobalsInterface
     {
         $filters = [
             new TwigFilter('hasTransparency', [$this, 'hasTransparency']),
-            new TwigFilter('trimEmptyParagraphs', [$this, 'trimEmptyParagraphs']),
+            new TwigFilter('trimEmptyParagraphs', [$this, 'trimEmptyParagraphs'], ['is_safe' => ['html']]),
         ];
 
         foreach ($this->config->filters as $name => $fn) {
