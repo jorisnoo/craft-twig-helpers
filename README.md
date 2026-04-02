@@ -4,8 +4,8 @@ A [Craft CMS](https://craftcms.com/) module that provides shared Twig helpers wi
 
 ## Features
 
-- Built-in Twig functions: `textSnippet`, `staticAsset`, `placeholderImage`
-- Built-in Twig filter: `hasTransparency`
+- Built-in Twig functions: `placeholderImage`
+- Built-in Twig filters: `hasTransparency`, `trimEmptyParagraphs`
 - Register custom filters, functions, globals, and tests via config
 - Supports Craft 4 and Craft 5
 
@@ -17,7 +17,7 @@ A [Craft CMS](https://craftcms.com/) module that provides shared Twig helpers wi
 ## Installation
 
 ```bash
-composer require noo/craft-twig-helpers
+composer require jorisnoo/craft-twig-helpers
 ```
 
 Register the module in your `config/app.php`:
@@ -57,23 +57,6 @@ return TwigHelpersConfig::create()
 
 ### Functions
 
-#### `textSnippet(handle, sectionName)`
-
-Retrieves a text snippet from a Craft entry. Defaults to looking in the `translations` section.
-
-```twig
-{{ textSnippet('welcomeMessage') }}
-{{ textSnippet('label', 'customSection') }}
-```
-
-#### `staticAsset(path)`
-
-Returns a URL for a static asset. Uses the `ASSET_CDN_HOST` environment variable when set, otherwise falls back to `@web/dist/`.
-
-```twig
-<img src="{{ staticAsset('images/logo.svg') }}">
-```
-
 #### `placeholderImage(config)`
 
 Generates a data URI for a placeholder SVG image.
@@ -93,6 +76,16 @@ Checks whether an Asset image has transparency.
 {% if asset|hasTransparency %}
     {# handle transparent image #}
 {% endif %}
+```
+
+#### `trimEmptyParagraphs`
+
+Strips empty `<p>` tags from the beginning and end of HTML content. Useful for cleaning up CKEditor output that adds filler paragraphs.
+
+Handles `<p></p>`, `<p><br></p>`, `<p>&nbsp;</p>`, non-breaking space characters, and `<br>` tags with attributes (e.g. `data-cke-filler`).
+
+```twig
+{{ entry.text|trimEmptyParagraphs }}
 ```
 
 ## License
