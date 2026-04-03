@@ -6,6 +6,7 @@ A [Craft CMS](https://craftcms.com/) module that provides shared Twig helpers wi
 
 - Built-in Twig functions: `placeholderImage`
 - Built-in Twig filters: `hasTransparency`, `trimEmptyParagraphs`
+- Built-in Twig tag: `{% minify %}` for HTML minification
 - Register custom filters, functions, globals, and tests via config
 - Supports Craft 4 and Craft 5
 
@@ -86,6 +87,26 @@ Handles `<p></p>`, `<p><br></p>`, `<p>&nbsp;</p>`, non-breaking space characters
 
 ```twig
 {{ entry.text|trimEmptyParagraphs }}
+```
+
+### Tags
+
+#### `{% minify %}`
+
+Minifies the wrapped HTML by stripping comments, collapsing whitespace, and removing unnecessary spaces around block-level elements. Content inside `<pre>`, `<textarea>`, `<script>`, and `<style>` tags is preserved.
+
+Minification is automatically disabled when `devMode` is `true`.
+
+```twig
+{% minify %}
+<!doctype html>
+<html>
+    <head>...</head>
+    <body>
+        ...
+    </body>
+</html>
+{% endminify %}
 ```
 
 ## License

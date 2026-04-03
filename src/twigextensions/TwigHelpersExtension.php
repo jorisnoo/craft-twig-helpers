@@ -59,6 +59,13 @@ class TwigHelpersExtension extends AbstractExtension implements GlobalsInterface
         return $this->config->globals;
     }
 
+    public function getTokenParsers(): array
+    {
+        return [
+            new MinifyTokenParser(),
+        ];
+    }
+
     public function getTests(): array
     {
         $tests = [];
