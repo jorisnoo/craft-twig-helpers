@@ -1,6 +1,6 @@
 <?php
 
-namespace Noo\CraftTwigHelpers\twigextensions;
+namespace Noo\CraftTwigHelpers\tags;
 
 use Noo\CraftTwigHelpers\MinifyHtml;
 use Twig\Compiler;
@@ -17,7 +17,7 @@ class MinifyNode extends Node
             ->write("\$_compiledBody = ob_get_clean();\n")
             ->write("if (!\Craft::\$app->getConfig()->getGeneral()->devMode) {\n")
             ->indent()
-            ->write("\$_compiledBody = " . MinifyHtml::class . "::minify(\$_compiledBody);\n")
+            ->write('$_compiledBody = '.MinifyHtml::class."::minify(\$_compiledBody);\n")
             ->outdent()
             ->write("}\n")
             ->write("echo \$_compiledBody;\n");

@@ -1,11 +1,12 @@
 <?php
 
-namespace Noo\CraftTwigHelpers\twigextensions;
+namespace Noo\CraftTwigHelpers;
 
-use Craft;
-use craft\elements\Asset;
-use craft\helpers\ImageTransforms;
 use Noo\CraftTwigHelpers\config\TwigHelpersConfig;
+use Noo\CraftTwigHelpers\filters\HasTransparencyFilter;
+use Noo\CraftTwigHelpers\filters\TrimEmptyParagraphsFilter;
+use Noo\CraftTwigHelpers\functions\PlaceholderImageFunction;
+use Noo\CraftTwigHelpers\tags\MinifyTokenParser;
 use Twig\Extension\AbstractExtension;
 use Twig\Extension\GlobalsInterface;
 use Twig\TwigFilter;
@@ -22,8 +23,8 @@ class TwigHelpersExtension extends AbstractExtension implements GlobalsInterface
     public function getFilters(): array
     {
         $filters = [
-            new TwigFilter('hasTransparency', [$this, 'hasTransparency']),
-            new TwigFilter('trimEmptyParagraphs', [$this, 'trimEmptyParagraphs'], ['is_safe' => ['html']]),
+            new TwigFilter('hasTransparency', new HasTransparencyFilter),
+            new TwigFilter('trimEmptyParagraphs', new TrimEmptyParagraphsFilter, ['is_safe' => ['html']]),
         ];
 
         foreach ($this->config->filters as $name => $fn) {
@@ -40,7 +41,7 @@ class TwigHelpersExtension extends AbstractExtension implements GlobalsInterface
     public function getFunctions(): array
     {
         $functions = [
-            new TwigFunction('placeholderImage', [$this, 'placeholderImage']),
+            new TwigFunction('placeholderImage', new PlaceholderImageFunction),
         ];
 
         foreach ($this->config->functions as $name => $fn) {
@@ -62,7 +63,7 @@ class TwigHelpersExtension extends AbstractExtension implements GlobalsInterface
     public function getTokenParsers(): array
     {
         return [
-            new MinifyTokenParser(),
+            new MinifyTokenParser,
         ];
     }
 
@@ -75,38 +76,5 @@ class TwigHelpersExtension extends AbstractExtension implements GlobalsInterface
         }
 
         return $tests;
-    }
-
-    public function trimEmptyParagraphs(string $html): string
-    {
-        $emptyP = '<p(?:\s[^>]*)?>(?:\s|\x{00A0}|&nbsp;|<br[^>]*\/?>)*<\/p>';
-
-        $html = preg_replace('~^(\s*' . $emptyP . '\s*)+~isu', '', $html);
-        $html = preg_replace('~(\s*' . $emptyP . '\s*)+$~isu', '', $html);
-
-        return trim($html);
-    }
-
-    public function hasTransparency(Asset $asset): bool
-    {
-        $localCopy = ImageTransforms::getLocalImageSource($asset);
-
-        return Craft::$app->getImages()->loadImage($localCopy, true)->getIsTransparent() ?? false;
-    }
-
-    public function placeholderImage(array $config): string
-    {
-        $width = $config['width'];
-        $height = $config['height'];
-        $color = $config['color'] ?? 'transparent';
-
-        return 'data:image/svg+xml;charset=utf-8,' . rawurlencode(
-            sprintf(
-                '<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'%s\' height=\'%s\' style=\'background:%s\'/>',
-                $width,
-                $height,
-                $color,
-            )
-        );
     }
 }

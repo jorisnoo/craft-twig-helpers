@@ -1,11 +1,10 @@
 <?php
 
-use Noo\CraftTwigHelpers\twigextensions\TwigHelpersExtension;
+use Noo\CraftTwigHelpers\filters\TrimEmptyParagraphsFilter;
 
 function trim_p(string $html): string
 {
-    return (new ReflectionMethod(TwigHelpersExtension::class, 'trimEmptyParagraphs'))
-        ->invoke(new TwigHelpersExtension(new \Noo\CraftTwigHelpers\config\TwigHelpersConfig()), $html);
+    return (new TrimEmptyParagraphsFilter)($html);
 }
 
 it('removes empty paragraphs from the beginning', function (string $input, string $expected) {

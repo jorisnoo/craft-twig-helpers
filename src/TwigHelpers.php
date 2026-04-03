@@ -3,8 +3,8 @@
 namespace Noo\CraftTwigHelpers;
 
 use Craft;
+use craft\web\Application;
 use Noo\CraftTwigHelpers\config\TwigHelpersConfig;
-use Noo\CraftTwigHelpers\twigextensions\TwigHelpersExtension;
 use yii\base\Module;
 
 class TwigHelpers extends Module
@@ -16,10 +16,10 @@ class TwigHelpers extends Module
         parent::init();
 
         Craft::$app->onInit(function () {
-            if (Craft::$app instanceof \craft\web\Application) {
+            if (Craft::$app instanceof Application) {
                 $config = Craft::$app->config->getConfigFromFile('twig-helpers');
 
-                if (!$config instanceof TwigHelpersConfig) {
+                if (! $config instanceof TwigHelpersConfig) {
                     $config = new TwigHelpersConfig($config ?: []);
                 }
 

@@ -40,10 +40,10 @@ class MinifyHtml
     public function process(): string
     {
         if ($this->isXhtml === null) {
-            $this->isXhtml = (false !== strpos($this->html, '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML'));
+            $this->isXhtml = (strpos($this->html, '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML') !== false);
         }
 
-        $this->replacementHash = 'MINIFYHTML' . md5((string) ($_SERVER['REQUEST_TIME'] ?? ''));
+        $this->replacementHash = 'MINIFYHTML'.md5((string) ($_SERVER['REQUEST_TIME'] ?? ''));
         $this->placeholders = [];
 
         // Replace <script> blocks with placeholders
@@ -87,10 +87,10 @@ class MinifyHtml
         // Remove whitespace around block-level elements
         $this->html = preg_replace(
             '/\s+(<\/?(?:area|article|aside|base(?:font)?|blockquote|body'
-            . '|canvas|caption|center|col(?:group)?|dd|dir|div|dl|dt|fieldset|figcaption|figure|footer|form'
-            . '|frame(?:set)?|h[1-6]|head|header|hgroup|hr|html|legend|li|link|main|map|menu|meta|nav'
-            . '|ol|opt(?:group|ion)|output|p|param|section|t(?:able|body|head|d|h||r|foot|itle)'
-            . '|ul|video)\b[^>]*>)/iu',
+            .'|canvas|caption|center|col(?:group)?|dd|dir|div|dl|dt|fieldset|figcaption|figure|footer|form'
+            .'|frame(?:set)?|h[1-6]|head|header|hgroup|hr|html|legend|li|link|main|map|menu|meta|nav'
+            .'|ol|opt(?:group|ion)|output|p|param|section|t(?:able|body|head|d|h||r|foot|itle)'
+            .'|ul|video)\b[^>]*>)/iu',
             '$1',
             $this->html,
         );
@@ -121,7 +121,7 @@ class MinifyHtml
     }
 
     /**
-     * @param array<int, string> $m
+     * @param  array<int, string>  $m
      */
     protected function commentCB(array $m): string
     {
@@ -132,14 +132,14 @@ class MinifyHtml
 
     protected function reservePlace(string $content): string
     {
-        $placeholder = '%' . $this->replacementHash . count($this->placeholders) . '%';
+        $placeholder = '%'.$this->replacementHash.count($this->placeholders).'%';
         $this->placeholders[$placeholder] = $content;
 
         return $placeholder;
     }
 
     /**
-     * @param array<int, string> $m
+     * @param  array<int, string>  $m
      */
     protected function removePreCB(array $m): string
     {
@@ -147,7 +147,7 @@ class MinifyHtml
     }
 
     /**
-     * @param array<int, string> $m
+     * @param  array<int, string>  $m
      */
     protected function removeTextareaCB(array $m): string
     {
@@ -155,7 +155,7 @@ class MinifyHtml
     }
 
     /**
-     * @param array<int, string> $m
+     * @param  array<int, string>  $m
      */
     protected function removeStyleCB(array $m): string
     {
@@ -175,7 +175,7 @@ class MinifyHtml
     }
 
     /**
-     * @param array<int, string> $m
+     * @param  array<int, string>  $m
      */
     protected function removeScriptCB(array $m): string
     {

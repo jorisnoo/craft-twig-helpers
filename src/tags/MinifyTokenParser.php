@@ -1,6 +1,6 @@
 <?php
 
-namespace Noo\CraftTwigHelpers\twigextensions;
+namespace Noo\CraftTwigHelpers\tags;
 
 use Twig\Token;
 use Twig\TokenParser\AbstractTokenParser;
