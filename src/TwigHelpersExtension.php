@@ -3,7 +3,6 @@
 namespace Noo\CraftTwigHelpers;
 
 use Noo\CraftTwigHelpers\config\TwigHelpersConfig;
-use Noo\CraftTwigHelpers\filters\HasTransparencyFilter;
 use Noo\CraftTwigHelpers\filters\TrimEmptyParagraphsFilter;
 use Noo\CraftTwigHelpers\functions\PlaceholderImageFunction;
 use Noo\CraftTwigHelpers\tags\MinifyTokenParser;
@@ -23,7 +22,6 @@ class TwigHelpersExtension extends AbstractExtension implements GlobalsInterface
     public function getFilters(): array
     {
         $filters = [
-            new TwigFilter('hasTransparency', new HasTransparencyFilter),
             new TwigFilter('trimEmptyParagraphs', new TrimEmptyParagraphsFilter, ['is_safe' => ['html']]),
         ];
 
