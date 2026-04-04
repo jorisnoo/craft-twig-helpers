@@ -15,7 +15,7 @@ class MinifyNode extends Node
             ->write("ob_start();\n")
             ->subcompile($this->getNode('body'))
             ->write("\$_compiledBody = ob_get_clean();\n")
-            ->write("if (!\Craft::\$app->getConfig()->getGeneral()->devMode) {\n")
+            ->write("if (!filter_var(getenv('CRAFT_DEV_MODE'), FILTER_VALIDATE_BOOLEAN)) {\n")
             ->indent()
             ->write('$_compiledBody = '.MinifyHtml::class."::minify(\$_compiledBody);\n")
             ->outdent()
