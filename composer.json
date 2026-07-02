@@ -3,10 +3,18 @@
     "description": "Shared Twig helpers for Craft CMS with config-based extensibility.",
     "type": "craft-module",
     "license": "MIT",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "twig",
+        "helpers"
+    ],
     "authors": [
         {
             "name": "Joris Noordermeer",
-            "email": "contact@noordermeer.ch"
+            "email": "contact@noordermeer.ch",
+            "homepage": "https://github.com/jorisnoo"
         }
     ],
     "autoload": {
