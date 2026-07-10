@@ -22,7 +22,7 @@ class TwigHelpersExtension extends AbstractExtension implements GlobalsInterface
     public function getFilters(): array
     {
         $filters = [
-            new TwigFilter('trimEmptyParagraphs', new TrimEmptyParagraphsFilter, ['is_safe' => ['html']]),
+            new TwigFilter('trimEmptyParagraphs', new TrimEmptyParagraphsFilter, ['preserves_safety' => ['html']]),
         ];
 
         foreach ($this->config->filters as $name => $fn) {
