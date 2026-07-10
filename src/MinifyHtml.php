@@ -51,38 +51,38 @@ class MinifyHtml
             '/(\s*)<script(\b[^>]*?>)([\s\S]*?)<\/script>(\s*)/iu',
             $this->removeScriptCB(...),
             $this->html,
-        );
+        ) ?? $this->html;
 
         // Replace <style> blocks with placeholders
         $this->html = preg_replace_callback(
             '/\s*<style(\b[^>]*>)([\s\S]*?)<\/style>\s*/iu',
             $this->removeStyleCB(...),
             $this->html,
-        );
+        ) ?? $this->html;
 
         // Remove HTML comments (preserve IE conditional comments)
         $this->html = preg_replace_callback(
             '/<!--([\s\S]*?)-->/u',
             $this->commentCB(...),
             $this->html,
-        );
+        ) ?? $this->html;
 
         // Replace <pre> blocks with placeholders
         $this->html = preg_replace_callback(
             '/\s*<pre(\b[^>]*?>[\s\S]*?<\/pre>)\s*/iu',
             $this->removePreCB(...),
             $this->html,
-        );
+        ) ?? $this->html;
 
         // Replace <textarea> blocks with placeholders
         $this->html = preg_replace_callback(
             '/\s*<textarea(\b[^>]*?>[\s\S]*?<\/textarea>)\s*/iu',
             $this->removeTextareaCB(...),
             $this->html,
-        );
+        ) ?? $this->html;
 
         // Trim each line
-        $this->html = preg_replace('/^\s+|\s+$/mu', '', $this->html);
+        $this->html = preg_replace('/^\s+|\s+$/mu', '', $this->html) ?? $this->html;
 
         // Remove whitespace around block-level elements
         $this->html = preg_replace(
@@ -93,17 +93,17 @@ class MinifyHtml
             .'|ul|video)\b[^>]*>)/iu',
             '$1',
             $this->html,
-        );
+        ) ?? $this->html;
 
         // Collapse whitespace outside of tags
         $this->html = preg_replace(
             '/>(\s(?:\s*))?([^<]+)(\s(?:\s*))?</u',
             '>$1$2$3<',
             $this->html,
-        );
+        ) ?? $this->html;
 
         // Use newlines before first attribute in open tags (to limit line lengths)
-        $this->html = preg_replace('/(<[a-z\-]+)\s+([^>]+>)/iu', "$1\n$2", $this->html);
+        $this->html = preg_replace('/(<[a-z\-]+)\s+([^>]+>)/iu', "$1\n$2", $this->html) ?? $this->html;
 
         // Fill placeholders (two passes for nested cases)
         $this->html = str_replace(
@@ -163,7 +163,7 @@ class MinifyHtml
         $css = $m[2];
 
         // Remove HTML comments and CDATA markers
-        $css = preg_replace('/(?:^\s*<!--|-->\s*$)/u', '', $css);
+        $css = preg_replace('/(?:^\s*<!--|-->\s*$)/u', '', $css) ?? $css;
         $css = $this->removeCdata($css);
         $css = trim($css);
 
@@ -186,7 +186,7 @@ class MinifyHtml
         $ws2 = ($m[4] === '') ? '' : ' ';
 
         // Remove HTML comments and CDATA markers
-        $js = preg_replace('/(?:^\s*<!--\s*|\s*(?:\/\/)?\s*-->\s*$)/u', '', $js);
+        $js = preg_replace('/(?:^\s*<!--\s*|\s*(?:\/\/)?\s*-->\s*$)/u', '', $js) ?? $js;
         $js = $this->removeCdata($js);
         $js = trim($js);
 
