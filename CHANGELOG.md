@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.1](https://github.com/jorisnoo/craft-twig-helpers/releases/tag/v1.0.1) (2026-07-10)
+
+### Bug Fixes
+
+- **minify:** fall back to original string on preg errors ([b2384ff](https://github.com/jorisnoo/craft-twig-helpers/commit/b2384ff77b853897af8e7045a55fe9ba94d5e6df))
+- **security:** use preserves_safety for trimEmptyParagraphs to prevent XSS ([d2429d6](https://github.com/jorisnoo/craft-twig-helpers/commit/d2429d690d743a54c759fcca30460263a61c9e65))
+
+### Chores
+
+- tidy composer.json metadata and add justfile ([1eedfb0](https://github.com/jorisnoo/craft-twig-helpers/commit/1eedfb016508ecb746ba4bc28635de11dcc6365e))
+- **deps:** bump actions/checkout from 6 to 7 ([a2bee90](https://github.com/jorisnoo/craft-twig-helpers/commit/a2bee90c478c9c730601d4cbcefb2e5f657cf183))
 ## [1.0.0](https://github.com/jorisnoo/craft-twig-helpers/releases/tag/v1.0.0) (2026-05-12)
 
 ### Features
