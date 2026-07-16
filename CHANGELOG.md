@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.2](https://github.com/jorisnoo/craft-twig-helpers/releases/tag/v1.0.2) (2026-07-16)
+
+### Bug Fixes
+
+- **trimEmptyParagraphs:** preserve Markup type through filter ([61d30ca](https://github.com/jorisnoo/craft-twig-helpers/commit/61d30ca2ac72282c27493c109d4fe46504c7e8b9))
 ## [1.0.1](https://github.com/jorisnoo/craft-twig-helpers/releases/tag/v1.0.1) (2026-07-10)
 
 ### Bug Fixes
