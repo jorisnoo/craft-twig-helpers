@@ -67,3 +67,14 @@ it('handles unicode non-breaking space character', function () {
     $input = "<p>Baukonsortium Lindenpark Uzwil</p><p>\xC2\xA0</p>";
     expect(trim_p($input))->toBe('<p>Baukonsortium Lindenpark Uzwil</p>');
 });
+
+it('returns Markup when given Markup, so safety survives auto-escaping', function () {
+    $input = new Twig\Markup('<p>Content</p><p>&nbsp;</p>', 'UTF-8');
+    $result = (new TrimEmptyParagraphsFilter)($input);
+    expect($result)->toBeInstanceOf(Twig\Markup::class)
+        ->and((string) $result)->toBe('<p>Content</p>');
+});
+
+it('returns a plain string when given a plain string', function () {
+    expect((new TrimEmptyParagraphsFilter)('<p>Content</p>'))->toBeString();
+});
