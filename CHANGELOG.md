@@ -2,12 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
-## [1.0.2](https://github.com/jorisnoo/craft-twig-helpers/releases/tag/v1.0.2) (2026-07-16)
+## [1.0.2](https://github.com/jorisnoo/craft-twig-helpers/releases/tag/1.0.2) (2026-07-16)
 
 ### Bug Fixes
 
 - **trimEmptyParagraphs:** preserve Markup type through filter ([61d30ca](https://github.com/jorisnoo/craft-twig-helpers/commit/61d30ca2ac72282c27493c109d4fe46504c7e8b9))
-## [1.0.1](https://github.com/jorisnoo/craft-twig-helpers/releases/tag/v1.0.1) (2026-07-10)
+## [1.0.1](https://github.com/jorisnoo/craft-twig-helpers/releases/tag/1.0.1) (2026-07-10)
 
 ### Bug Fixes
 
@@ -18,7 +18,7 @@ All notable changes to this project will be documented in this file.
 
 - tidy composer.json metadata and add justfile ([1eedfb0](https://github.com/jorisnoo/craft-twig-helpers/commit/1eedfb016508ecb746ba4bc28635de11dcc6365e))
 - **deps:** bump actions/checkout from 6 to 7 ([a2bee90](https://github.com/jorisnoo/craft-twig-helpers/commit/a2bee90c478c9c730601d4cbcefb2e5f657cf183))
-## [1.0.0](https://github.com/jorisnoo/craft-twig-helpers/releases/tag/v1.0.0) (2026-05-12)
+## [1.0.0](https://github.com/jorisnoo/craft-twig-helpers/releases/tag/1.0.0) (2026-05-12)
 
 ### Features
 

@@ -112,3 +112,7 @@ Minification is automatically disabled when `devMode` is `true`.
 ## License
 
 MIT
+
+## Maintainer releases
+
+See [RELEASING.md](RELEASING.md) for versioning, changelog entries and the release command.
