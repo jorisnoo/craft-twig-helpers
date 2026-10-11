@@ -78,3 +78,13 @@ it('returns Markup when given Markup, so safety survives auto-escaping', functio
 it('returns a plain string when given a plain string', function () {
     expect((new TrimEmptyParagraphsFilter)('<p>Content</p>'))->toBeString();
 });
+
+it('returns an empty string for null (empty field)', function () {
+    expect((new TrimEmptyParagraphsFilter)(null))->toBe('');
+});
+
+it('returns the original content when the regex fails', function () {
+    // Invalid UTF-8 makes preg_replace() with the /u modifier return null.
+    $input = "<p></p><p>Content \xff</p>";
+    expect(trim_p($input))->toBe($input);
+});
