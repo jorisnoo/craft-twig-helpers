@@ -21,36 +21,18 @@ class TwigHelpersExtension extends AbstractExtension implements GlobalsInterface
 
     public function getFilters(): array
     {
-        $filters = [
+        return [
             new TwigFilter('trimEmptyParagraphs', new TrimEmptyParagraphsFilter, ['preserves_safety' => ['html']]),
+            ...$this->configured($this->config->filters, 'Filters', fn (string $name, $fn) => new TwigFilter($name, $fn)),
         ];
-
-        foreach ($this->config->filters as $name => $fn) {
-            if (is_numeric($name)) {
-                throw new InvalidConfigException('Filters must be declared with an alphanumeric name.');
-            }
-
-            $filters[] = new TwigFilter($name, $fn);
-        }
-
-        return $filters;
     }
 
     public function getFunctions(): array
     {
-        $functions = [
+        return [
             new TwigFunction('placeholderImage', new PlaceholderImageFunction),
+            ...$this->configured($this->config->functions, 'Functions', fn (string $name, $fn) => new TwigFunction($name, $fn)),
         ];
-
-        foreach ($this->config->functions as $name => $fn) {
-            if (is_numeric($name)) {
-                throw new InvalidConfigException('Functions must be declared with an alphanumeric name.');
-            }
-
-            $functions[] = new TwigFunction($name, $fn);
-        }
-
-        return $functions;
     }
 
     public function getGlobals(): array
@@ -67,12 +49,32 @@ class TwigHelpersExtension extends AbstractExtension implements GlobalsInterface
 
     public function getTests(): array
     {
-        $tests = [];
+        return $this->configured($this->config->tests, 'Tests', fn (string $name, $test) => new TwigTest($name, $test));
+    }
 
-        foreach ($this->config->tests as $name => $test) {
-            $tests[] = new TwigTest($name, $test);
+    /**
+     * Builds Twig callables from a config map, requiring named (non-numeric) keys.
+     *
+     * @template T
+     *
+     * @param  array<array-key, mixed>  $definitions
+     * @param  callable(string, mixed): T  $factory
+     * @return list<T>
+     *
+     * @throws InvalidConfigException
+     */
+    private function configured(array $definitions, string $kind, callable $factory): array
+    {
+        $items = [];
+
+        foreach ($definitions as $name => $callable) {
+            if (is_numeric($name)) {
+                throw new InvalidConfigException("{$kind} must be declared with an alphanumeric name.");
+            }
+
+            $items[] = $factory((string) $name, $callable);
         }
 
-        return $tests;
+        return $items;
     }
 }
