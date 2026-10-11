@@ -5,7 +5,7 @@ A [Craft CMS](https://craftcms.com/) module that provides shared Twig helpers wi
 ## Features
 
 - Built-in Twig functions: `placeholderImage`
-- Built-in Twig filters: `hasTransparency`, `trimEmptyParagraphs`
+- Built-in Twig filters: `trimEmptyParagraphs`
 - Built-in Twig tag: `{% minify %}` for HTML minification
 - Register custom filters, functions, globals, and tests via config
 - Supports Craft 4 and Craft 5
@@ -69,21 +69,13 @@ Generates a data URI for a placeholder SVG image.
 
 ### Filters
 
-#### `hasTransparency`
-
-Checks whether an Asset image has transparency.
-
-```twig
-{% if asset|hasTransparency %}
-    {# handle transparent image #}
-{% endif %}
-```
+> The `hasTransparency` filter was removed before 1.0.0; it is provided by [`jorisnoo/craft-blurhash`](https://github.com/jorisnoo/craft-blurhash).
 
 #### `trimEmptyParagraphs`
 
 Strips empty `<p>` tags from the beginning and end of HTML content. Useful for cleaning up CKEditor output that adds filler paragraphs.
 
-Handles `<p></p>`, `<p><br></p>`, `<p>&nbsp;</p>`, non-breaking space characters, and `<br>` tags with attributes (e.g. `data-cke-filler`).
+Handles `<p></p>`, `<p><br></p>`, `<p>&nbsp;</p>`, non-breaking space characters, and `<br>` tags with attributes (e.g. `data-cke-filler`). An empty field (`null`) returns an empty string.
 
 ```twig
 {{ entry.text|trimEmptyParagraphs }}
@@ -95,7 +87,7 @@ Handles `<p></p>`, `<p><br></p>`, `<p>&nbsp;</p>`, non-breaking space characters
 
 Minifies the wrapped HTML by stripping comments, collapsing whitespace, and removing unnecessary spaces around block-level elements. Content inside `<pre>`, `<textarea>`, `<script>`, and `<style>` tags is preserved.
 
-Minification is automatically disabled when `devMode` is `true`.
+Minification is automatically disabled when Craft's `devMode` general config setting is enabled.
 
 ```twig
 {% minify %}
