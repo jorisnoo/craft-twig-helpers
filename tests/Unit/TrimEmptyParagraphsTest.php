@@ -1,6 +1,7 @@
 <?php
 
 use Noo\CraftTwigHelpers\filters\TrimEmptyParagraphsFilter;
+use Twig\Markup;
 
 function trim_p(string $html): string
 {
@@ -69,9 +70,9 @@ it('handles unicode non-breaking space character', function () {
 });
 
 it('returns Markup when given Markup, so safety survives auto-escaping', function () {
-    $input = new Twig\Markup('<p>Content</p><p>&nbsp;</p>', 'UTF-8');
+    $input = new Markup('<p>Content</p><p>&nbsp;</p>', 'UTF-8');
     $result = (new TrimEmptyParagraphsFilter)($input);
-    expect($result)->toBeInstanceOf(Twig\Markup::class)
+    expect($result)->toBeInstanceOf(Markup::class)
         ->and((string) $result)->toBe('<p>Content</p>');
 });
 
