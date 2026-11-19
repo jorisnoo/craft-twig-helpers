@@ -13,7 +13,7 @@ A [Craft CMS](https://craftcms.com/) module that provides shared Twig helpers wi
 ## Requirements
 
 - Craft CMS ^4.3.5 or ^5.0
-- PHP ^8.2
+- PHP ^8.4
 
 Use a Craft/Twig combination that passes Composer's security checks. Craft 4.18.9 pins Twig 3.19.x, which currently has security advisories; use a supported Craft 5 release for new installs.
 
