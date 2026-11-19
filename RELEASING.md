@@ -14,7 +14,7 @@ Configured release checks:
 composer check
 ```
 
-Install dependencies with `composer update` before releasing. `composer check` validates the manifest and lock, audits dependencies, checks Pint style, and runs the Pest tests. The `Package checks` CI check requires this suite on PHP 8.2–8.5. The helper runs it locally when publishing; dry-run prints it without executing it.
+Install dependencies with `composer update` before releasing. `composer check` validates the manifest and lock, audits dependencies, checks Pint style, and runs the Pest tests. The `Package checks` CI check requires this suite on PHP 8.4–8.5. The helper runs it locally when publishing; dry-run prints it without executing it.
 
 ## Release
 
