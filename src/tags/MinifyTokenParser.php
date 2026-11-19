@@ -16,7 +16,7 @@ class MinifyTokenParser extends AbstractTokenParser
         $body = $this->parser->subparse($this->decideMinifyEnd(...), true);
         $stream->expect(Token::BLOCK_END_TYPE);
 
-        return new MinifyNode(['body' => $body], [], $lineNo, $this->getTag());
+        return new MinifyNode(['body' => $body], [], $lineNo);
     }
 
     public function getTag(): string

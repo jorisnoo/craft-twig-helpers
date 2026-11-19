@@ -11,10 +11,10 @@ Release from `main` using an explicit version without a `v` prefix. `CHANGELOG.m
 Configured release checks:
 
 ```sh
-vendor/bin/pest
+composer check
 ```
 
-Install the project’s normal dependencies first. The helper runs these checks when publishing; dry-run prints them without executing them. Run any additional checks needed for the changed behavior before committing.
+Install dependencies with `composer update` before releasing. `composer check` validates the manifest and lock, audits dependencies, checks Pint style, and runs the Pest tests. The `Package checks` CI check requires this suite on PHP 8.2–8.5. The helper runs it locally when publishing; dry-run prints it without executing it.
 
 ## Release
 

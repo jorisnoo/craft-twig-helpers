@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.3] - 2026-11-19
+
+### Fixed
+
+- Empty rich-text fields now render as empty strings. Trimming leaves interior paragraphs intact and preserves the original value on regex errors.
+- Console and queue templates receive the same built-in and configured helpers as web templates.
+- The minify tag works with Twig's yield mode and honors Craft's resolved dev mode. Regex failures preserve the complete input, and comments inside preformatted text and textareas survive minification.
+- Placeholder SVGs validate dimensions and XML-escape color values. The Composer requirements now reflect the existing minimum of Craft 4.3.5 or Craft 5.
+
 ## [1.0.2](https://github.com/jorisnoo/craft-twig-helpers/releases/tag/1.0.2) (2026-07-16)
 
 ### Bug Fixes

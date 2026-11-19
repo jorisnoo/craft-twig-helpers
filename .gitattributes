@@ -1,12 +1,18 @@
 # Do not export those files in the Composer archive (lighter dependency)
 .gitattributes export-ignore
-.github/ export-ignore
+/.github export-ignore
 .gitignore export-ignore
 CHANGELOG.md export-ignore
-README.md export-ignore
-SECURITY.md export-ignore
+/.editorconfig export-ignore
+/.release.json export-ignore
+/AGENTS.md export-ignore
+/CLAUDE.md export-ignore
+/RELEASING.md export-ignore
+/scripts export-ignore
+/justfile export-ignore
+/phpunit.xml export-ignore
 composer.lock export-ignore
-tests/ export-ignore
+/tests export-ignore
 
 # Auto-detect text files and perform LF normalization
 * text=auto
