@@ -79,3 +79,22 @@ it('returns Markup when given Markup, so safety survives auto-escaping', functio
 it('returns a plain string when given a plain string', function () {
     expect((new TrimEmptyParagraphsFilter)('<p>Content</p>'))->toBeString();
 });
+
+it('accepts an empty rich-text field', function () {
+    expect((new TrimEmptyParagraphsFilter)(null))->toBe('');
+});
+
+it('trims the edges without losing a long run of interior paragraphs', function () {
+    $middle = '<p>Intro</p>'.str_repeat("\n<p>&nbsp;</p>", 50).'<p>End</p>';
+
+    expect(trim_p('<p></p>'.$middle.'<p></p>'))->toBe($middle);
+});
+
+it('returns the original value, including its safety, on invalid UTF-8', function () {
+    $text = "<p></p><p>\xff</p>";
+    $safe = new Markup($text, 'UTF-8');
+    $filter = new TrimEmptyParagraphsFilter;
+
+    expect($filter($text))->toBe($text)
+        ->and($filter($safe))->toBe($safe);
+});

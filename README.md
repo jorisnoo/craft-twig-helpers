@@ -5,15 +5,17 @@ A [Craft CMS](https://craftcms.com/) module that provides shared Twig helpers wi
 ## Features
 
 - Built-in Twig functions: `placeholderImage`
-- Built-in Twig filters: `hasTransparency`, `trimEmptyParagraphs`
+- Built-in Twig filter: `trimEmptyParagraphs`
 - Built-in Twig tag: `{% minify %}` for HTML minification
 - Register custom filters, functions, globals, and tests via config
 - Supports Craft 4 and Craft 5
 
 ## Requirements
 
-- Craft CMS ^4.0.0 or ^5.0.0
+- Craft CMS ^4.3.5 or ^5.0
 - PHP ^8.2
+
+Use a Craft/Twig combination that passes Composer's security checks. Craft 4.18.9 pins Twig 3.19.x, which currently has security advisories; use a supported Craft 5 release for new installs.
 
 ## Installation
 
@@ -31,6 +33,8 @@ return [
     'bootstrap' => ['twig-helpers'],
 ];
 ```
+
+Use `config/app.php` (not `config/app.web.php`) so the same helpers are available to console commands and queue workers.
 
 ## Configuration
 
@@ -60,7 +64,7 @@ return TwigHelpersConfig::create()
 
 #### `placeholderImage(config)`
 
-Generates a data URI for a placeholder SVG image.
+Generates a data URI for a placeholder SVG image. `width` and `height` must be finite, positive numbers; `color` is an optional CSS color string (default: `transparent`). Invalid dimensions raise `InvalidArgumentException`.
 
 ```twig
 <img src="{{ placeholderImage({ width: 800, height: 600 }) }}">
@@ -69,21 +73,13 @@ Generates a data URI for a placeholder SVG image.
 
 ### Filters
 
-#### `hasTransparency`
-
-Checks whether an Asset image has transparency.
-
-```twig
-{% if asset|hasTransparency %}
-    {# handle transparent image #}
-{% endif %}
-```
-
 #### `trimEmptyParagraphs`
 
 Strips empty `<p>` tags from the beginning and end of HTML content. Useful for cleaning up CKEditor output that adds filler paragraphs.
 
 Handles `<p></p>`, `<p><br></p>`, `<p>&nbsp;</p>`, non-breaking space characters, and `<br>` tags with attributes (e.g. `data-cke-filler`).
+
+An empty field (`null`) produces an empty string. If PCRE cannot process the input, the filter returns it unchanged, preserving its existing Twig safety status.
 
 ```twig
 {{ entry.text|trimEmptyParagraphs }}
@@ -93,9 +89,9 @@ Handles `<p></p>`, `<p><br></p>`, `<p>&nbsp;</p>`, non-breaking space characters
 
 #### `{% minify %}`
 
-Minifies the wrapped HTML by stripping comments, collapsing whitespace, and removing unnecessary spaces around block-level elements. Content inside `<pre>`, `<textarea>`, `<script>`, and `<style>` tags is preserved.
+Minifies the wrapped HTML by stripping ordinary comments, trimming line indentation, and removing whitespace before block-level tags. It does not collapse runs of spaces within a line of text. `<pre>` and `<textarea>` contents are preserved verbatim. `<script>` and `<style>` contents are protected from HTML rewriting; surrounding whitespace and legacy comment/CDATA wrappers in their bodies are normalized. If a regex fails, the original HTML is returned unchanged.
 
-Minification is automatically disabled when `devMode` is `true`.
+Minification is disabled when Craft's resolved `devMode` general config setting is `true`.
 
 ```twig
 {% minify %}

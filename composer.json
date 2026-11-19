@@ -24,14 +24,20 @@
     },
     "require": {
         "php": "^8.2",
-        "craftcms/cms": "^4.0.0 || ^5.0.0"
+        "craftcms/cms": "^4.3.5 || ^5.0.0"
     },
     "require-dev": {
-        "laravel/pint": ">=1.18.1",
-        "pestphp/pest": "^4.4"
+        "laravel/pint": "^1.18.1",
+        "pestphp/pest": "^3.8 || ^4.4"
     },
     "scripts": {
-        "lint": "pint"
+        "lint": "pint",
+        "check": [
+            "@composer validate --strict",
+            "@composer audit",
+            "pint --test",
+            "pest"
+        ]
     },
     "config": {
         "allow-plugins": {
